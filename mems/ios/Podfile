@@ -1,0 +1,44 @@
+# Minimum iOS version required by react-native-vision-camera v4 and ffmpeg-kit
+platform :ios, '13.4'
+
+# Set the FFmpeg kit package variant.
+# 'full-lts' includes libx264 (H.264), which is required for video export.
+# Other options: 'min', 'min-lts', 'https', 'audio', 'video', 'full'
+$FFmpegKitPackage = "full-lts"
+
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+target 'Mems' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # Hermes is strongly recommended for performance
+    :hermes_enabled => true,
+    :fabric_enabled => false,
+  )
+
+  # ── Pods resolved via autolinking ─────────────────────────────────────────
+  # react-native-vision-camera
+  # @notifee/react-native
+  # react-native-fs
+  # react-native-mmkv
+  # react-native-image-picker
+  # @react-native-camera-roll/camera-roll
+  # ffmpeg-kit-react-native  (uses $FFmpegKitPackage defined above)
+  # react-native-gesture-handler
+  # react-native-safe-area-context
+  # react-native-screens
+
+  post_install do |installer|
+    react_native_post_install(installer)
+
+    # Silence Xcode 15 warnings about duplicate architectures
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.4'
+      end
+    end
+  end
+end

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Mems – Android AndroidManifest.xml
+  Declares all permissions required by the app's native dependencies.
+-->
+<manifest
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <!-- ── Permissions ──────────────────────────────────────────────────── -->
+
+  <!-- Camera: required by react-native-vision-camera -->
+  <uses-permission android:name="android.permission.CAMERA" />
+
+  <!-- Microphone: include if you ever plan to add audio recording -->
+  <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
+
+  <!-- Photo library read – Android 13+ -->
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+  <!-- Photo library read – Android 12 and below -->
+  <uses-permission
+    android:name="android.permission.READ_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
+
+  <!-- Photo library write – Android 9 and below only -->
+  <uses-permission
+    android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    android:maxSdkVersion="28"
+    tools:ignore="ScopedStorage" />
+
+  <!-- Notifications: required for @notifee/react-native on Android 13+ -->
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+  <!-- Needed by @notifee/react-native to schedule exact daily reminders -->
+  <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+  <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+  <!-- Required by @notifee/react-native to reschedule triggers after reboot -->
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+  <!-- Internet (Metro dev server – remove in production builds if unused) -->
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <!-- ── Hardware feature declarations ────────────────────────────────── -->
+  <uses-feature android:name="android.hardware.camera" android:required="true" />
+  <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+  <!-- ── Application ──────────────────────────────────────────────────── -->
+  <application
+    android:name=".MainApplication"
+    android:label="@string/app_name"
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:allowBackup="false"
+    android:theme="@style/AppTheme"
+    android:supportsRtl="true">
+
+    <activity
+      android:name=".MainActivity"
+      android:label="@string/app_name"
+      android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+      android:launchMode="singleTask"
+      android:windowSoftInputMode="adjustResize"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <!-- @notifee/react-native – reschedule triggers after device reboot -->
+    <receiver
+      android:name="io.invertase.notifee.NotifeeApiModule$ReschedulingBroadcastReceiver"
+      android:enabled="true"
+      android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+      </intent-filter>
+    </receiver>
+
+  </application>
+</manifest>

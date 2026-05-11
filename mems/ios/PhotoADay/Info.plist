@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Mems – iOS Info.plist
+  All NSUsageDescription strings are shown by iOS in the system permission dialog.
+  Customize the text to match your App Store review submission.
+-->
+<plist version="1.0">
+<dict>
+
+  <!-- App metadata -->
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleDisplayName</key>
+  <string>Mems</string>
+  <key>CFBundleExecutable</key>
+  <string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleIdentifier</key>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0</string>
+  <key>CFBundleSignature</key>
+  <string>????</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+
+  <!-- ── Privacy – Camera ─────────────────────────────────────────────────── -->
+  <key>NSCameraUsageDescription</key>
+  <string>Mems uses your camera to take your daily photo.</string>
+
+  <!-- ── Privacy – Photo Library (read) ─────────────────────────────────── -->
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Mems reads your photo library so you can choose an existing photo for today.</string>
+
+  <!-- ── Privacy – Photo Library (write / add-only) ─────────────────────── -->
+  <!--
+    NSPhotoLibraryAddUsageDescription is required when your app only adds
+    assets to the library (e.g. saving the exported video) without reading it.
+    Keep BOTH keys: CameraRoll.saveAsset uses the add path on iOS 11+.
+  -->
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>Mems saves your monthly video reel to the Photos app.</string>
+
+  <!-- ── Microphone (not used, but required by some VisionCamera builds) ── -->
+  <!-- Remove this key if you never enable audio recording. -->
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Mems does not use the microphone.</string>
+
+  <!-- ── Notifications ─────────────────────────────────────────────────── -->
+  <!-- @notifee/react-native handles the permission prompt at runtime;
+       no additional Info.plist key is needed beyond the standard entitlement. -->
+
+  <!-- ── URL schemes / transports ─────────────────────────────────────── -->
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <!-- Allow local Metro bundler during development -->
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSAllowsArbitraryLoadsForMedia</key>
+    <false/>
+    <key>NSAllowsLocalNetworking</key>
+    <true/>
+  </dict>
+
+  <!-- ── React Native internals ─────────────────────────────────────────── -->
+  <key>UIAppFonts</key>
+  <array/>
+  <key>UILaunchStoryboardName</key>
+  <string>LaunchScreen</string>
+  <key>UIRequiredDeviceCapabilities</key>
+  <array>
+    <string>armv7</string>
+  </array>
+  <key>UISupportedInterfaceOrientations</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+  </array>
+  <key>UISupportedInterfaceOrientations~ipad</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+  <key>UIViewControllerBasedStatusBarAppearance</key>
+  <false/>
+
+</dict>
+</plist>
